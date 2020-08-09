@@ -10,6 +10,8 @@
     "start:dev": "tsnd src/index.ts",
     "lint": "eslint ./src ./test --ext .ts --fix",
     "lint:fix": "eslint ./src ./test --ext .ts",
+    "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
+    "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "test:functional": "jest --projects ./test --runInBand"
   },
   "devDependencies": {
@@ -22,6 +24,7 @@
     "@typescript-eslint/parser": "^3.8.0",
     "eslint": "^7.6.0",
     "jest": "^26.2.2",
+    "prettier": "^2.0.5",
     "supertest": "^4.0.2",
     "ts-jest": "^26.1.4",
     "ts-node-dev": "^1.0.0-pre.56",
