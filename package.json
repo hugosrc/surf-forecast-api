@@ -1,0 +1,24 @@
+{
+  "name": "node-api-course",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "hugosrc <hugo.uibai54@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "yarn build && node dist/src/index.js",
+    "lint": "eslint ./src ./test --ext .ts --fix",
+    "lint:fix": "eslint ./src ./test --ext .ts"
+  },
+  "devDependencies": {
+    "@types/module-alias": "^2.0.0",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "eslint": "^7.6.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "module-alias": "^2.2.2"
+  }
+}
