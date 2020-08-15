@@ -29,7 +29,6 @@ describe('Beach forecast functional tests', () => {
       .query({
         lat: '-33.792726',
         lng: '151.289824',
-        end: '1592113802',
         params: /(.*)/,
         source: 'noaa',
       })
