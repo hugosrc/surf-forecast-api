@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import { SetupServer } from '@src/server';
 
-let server: SetupServer 
+let server: SetupServer;
 
 beforeAll(async () => {
   server = new SetupServer();
@@ -12,5 +12,5 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  await server.close()
-})
+  await server.close();
+});
