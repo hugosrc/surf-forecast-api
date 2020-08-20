@@ -1,19 +1,20 @@
 import { Controller, Post } from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { Beach } from '@src/models/beach';
+import { BaseController } from '.';
 
 @Controller('beaches')
-export class BeachesController {
+export class BeachesController extends BaseController {
   @Post('')
-  public async create(req: Request, res: Response): Promise<Response> {
+  public async create(req: Request, res: Response): Promise<void> {
     try {
       const beach = new Beach(req.body);
 
       const result = await beach.save();
 
-      return res.status(201).send(result);
+      res.status(201).send(result);
     } catch (err) {
-      return res.status(422).send({ error: err.message });
+      this.sendCreateUpdateErrorResponse(res, err)
     }
   }
 }
