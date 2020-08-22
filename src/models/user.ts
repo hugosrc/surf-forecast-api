@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model, model } from 'mongoose';
-import { AuthService } from '@src/services/auth'
+import { AuthService } from '@src/services/auth';
 
 export interface User {
   _id?: string;
@@ -9,26 +9,26 @@ export interface User {
 }
 
 export enum CUSTOM_VALIDATION {
-  DUPLICATED = 'DUPLICATED'
+  DUPLICATED = 'DUPLICATED',
 }
 
 interface UserModel extends Omit<User, '_id'>, Document {}
 
 const schema = new Schema(
   {
-    name: { 
-      type: String, 
-      required: true 
+    name: {
+      type: String,
+      required: true,
     },
-    email: { 
-      type: String, 
-      required: true, 
+    email: {
+      type: String,
+      required: true,
       unique: [true, 'Email must be unique'],
     },
     password: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   {
     toJSON: {
@@ -41,23 +41,27 @@ const schema = new Schema(
   }
 );
 
-schema.path('email').validate(async (email: string) => {
-  const emailCount = await mongoose.models.User.countDocuments({ email })
+schema.path('email').validate(
+  async (email: string) => {
+    const emailCount = await mongoose.models.User.countDocuments({ email });
 
-  return !emailCount
-}, 'already exists in the database.', CUSTOM_VALIDATION.DUPLICATED)
+    return !emailCount;
+  },
+  'already exists in the database.',
+  CUSTOM_VALIDATION.DUPLICATED
+);
 
-schema.pre<UserModel>('save', async function(): Promise<void> {
+schema.pre<UserModel>('save', async function (): Promise<void> {
   if (!this.password || !this.isModified('password')) {
     return;
   }
 
   try {
-    const hashedPassword = await AuthService.hashPassword(this.password)
-    this.password = hashedPassword
+    const hashedPassword = await AuthService.hashPassword(this.password);
+    this.password = hashedPassword;
   } catch (error) {
-    console.error(`Error hashing the password for the user ${this.name}`)
+    console.error(`Error hashing the password for the user ${this.name}`);
   }
-})
+});
 
 export const User: Model<UserModel> = model('User', schema);
