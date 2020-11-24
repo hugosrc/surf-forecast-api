@@ -5,8 +5,7 @@
   "author": "hugosrc <hugo.uibai54@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "start": "yarn build && node dist/src/index.js",
+    "start": "tsc && node dist/src/index.js",
     "start:dev": "tsnd --transpile-only --respawn --no-notify src/index.ts | pino-pretty -c",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
