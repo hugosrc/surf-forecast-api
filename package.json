@@ -7,13 +7,13 @@
   "scripts": {
     "start": "tsc && node dist/src/index.js",
     "start:dev": "tsnd --transpile-only --respawn --no-notify src/index.ts | pino-pretty -c",
-    "lint": "eslint ./src ./test --ext .ts",
-    "lint:fix": "eslint ./src ./test --ext .ts --fix",
-    "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
-    "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "eslint ./src ./__tests__ --ext .ts",
+    "lint:fix": "eslint ./src ./__tests__ --ext .ts --fix",
+    "style:check": "prettier --check 'src/**/*.ts' '__tests__/**/*.ts'",
+    "style:fix": "prettier --write 'src/**/*.ts' '__tests__/**/*.ts'",
     "test": "yarn test:unit && yarn test:functional",
     "test:unit": "jest",
-    "test:functional": "jest --projects ./test --runInBand"
+    "test:functional": "jest --projects ./__tests__ --runInBand"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
