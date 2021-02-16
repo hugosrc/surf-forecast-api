@@ -8,7 +8,7 @@ jest.mock('@src/clients/stormGlass');
 describe('Forecast Service', () => {
   const mockedStormGlassService = new StormGlass() as jest.Mocked<StormGlass>;
 
-  it('should return the forecast for mutiple beaches in the same hour with different ratings', async () => {
+  it('should return the forecast for mutiple beaches in the same hour with different ratings prdered by rating', async () => {
     mockedStormGlassService.fetchPoints.mockResolvedValueOnce([
       {
         swellDirection: 123.41,
@@ -55,21 +55,6 @@ describe('Forecast Service', () => {
         forecast: [
           {
             lat: -33.792726,
-            lng: 151.289824,
-            name: 'Manly',
-            position: 'E',
-            rating: 2,
-            swellDirection: 123.41,
-            swellHeight: 0.21,
-            swellPeriod: 3.67,
-            time: '2020-04-26T00:00:00+00:00',
-            waveDirection: 232.12,
-            waveHeight: 0.46,
-            windDirection: 310.48,
-            windSpeed: 100,
-          },
-          {
-            lat: -33.792726,
             lng: 141.289824,
             name: 'Dee Why',
             position: 'S',
@@ -81,6 +66,21 @@ describe('Forecast Service', () => {
             waveDirection: 231.38,
             waveHeight: 2.07,
             windDirection: 299.45,
+            windSpeed: 100,
+          },
+          {
+            lat: -33.792726,
+            lng: 151.289824,
+            name: 'Manly',
+            position: 'E',
+            rating: 2,
+            swellDirection: 123.41,
+            swellHeight: 0.21,
+            swellPeriod: 3.67,
+            time: '2020-04-26T00:00:00+00:00',
+            waveDirection: 232.12,
+            waveHeight: 0.46,
+            windDirection: 310.48,
             windSpeed: 100,
           },
         ],

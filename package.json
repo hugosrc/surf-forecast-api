@@ -24,6 +24,7 @@
     "@types/http-status-codes": "^1.2.0",
     "@types/jest": "^26.0.9",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash": "^4.14.168",
     "@types/module-alias": "^2.0.0",
     "@types/mongoose": "^5.7.36",
     "@types/nock": "^11.1.0",
@@ -52,6 +53,7 @@
     "express-pino-logger": "^5.0.0",
     "http-status-codes": "^2.1.4",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
     "module-alias": "^2.2.2",
     "mongoose": "^5.9.28",
     "pino": "^6.7.0"
