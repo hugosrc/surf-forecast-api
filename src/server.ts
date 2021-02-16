@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import expressPino from 'express-pino-logger';
 import { ForecastController } from './controllers/forecast';
 import { Application } from 'express';
+import cors from 'cors';
 import * as database from '@src/database';
 import { BeachesController } from './controllers/beach';
 import { UsersController } from './controllers/users';
@@ -22,6 +23,7 @@ export class SetupServer extends Server {
 
   private setupExpress(): void {
     this.app.use(bodyParser.json());
+    this.app.use(cors());
     this.app.use(
       expressPino({
         logger,
