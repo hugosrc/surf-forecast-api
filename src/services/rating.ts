@@ -1,5 +1,5 @@
 import { ForecastPoint } from '@src/clients/stormGlass';
-import { BeachPosition } from '@src/models/beach';
+import { GeoPosition } from '@src/models/beach';
 
 const waveHeights = {
   ankleToKnee: {
@@ -34,8 +34,8 @@ export class Rating {
   }
 
   public getRatingBasedOnWindAndWavePositions(
-    wavePosition: BeachPosition,
-    windPosition: BeachPosition
+    wavePosition: GeoPosition,
+    windPosition: GeoPosition
   ): number {
     if (wavePosition === windPosition) return 1;
 
@@ -72,25 +72,25 @@ export class Rating {
     return 1;
   }
 
-  public getPositionFromLocation(coordinates: number): BeachPosition {
+  public getPositionFromLocation(coordinates: number): GeoPosition {
     if (coordinates >= 310 || (coordinates < 50 && coordinates >= 0)) {
-      return BeachPosition.N;
+      return GeoPosition.N;
     }
     if (coordinates >= 50 && coordinates < 120) {
-      return BeachPosition.E;
+      return GeoPosition.E;
     }
     if (coordinates >= 120 && coordinates < 220) {
-      return BeachPosition.S;
+      return GeoPosition.S;
     }
     if (coordinates >= 220 && coordinates < 310) {
-      return BeachPosition.W;
+      return GeoPosition.W;
     }
-    return BeachPosition.E;
+    return GeoPosition.E;
   }
 
   private isWindOffShore(
-    wavePosition: BeachPosition,
-    windPosition: BeachPosition
+    wavePosition: GeoPosition,
+    windPosition: GeoPosition
   ): boolean {
     return (
       ('NESW'.indexOf(wavePosition) + 'NESW'.indexOf(windPosition)) % 2 == 0
