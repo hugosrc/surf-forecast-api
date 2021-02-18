@@ -1,7 +1,6 @@
 import { InternalError } from '@src/utils/errors/internal-error';
 import config, { IConfig } from 'config';
 import * as HTTPUtil from '@src/utils/request';
-import logger from '@src/logger';
 
 export interface StormGlassPointSource {
   [key: string]: number;

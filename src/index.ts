@@ -1,7 +1,6 @@
 import { SetupServer } from './server';
 import config from 'config';
 import logger from './logger';
-import { PORT } from './config';
 
 enum ExitStatus {
   Failure = 1,
