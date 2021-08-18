@@ -1,5 +1,5 @@
+import { STORMGLASS_API_TOKEN, STORMGLASS_API_URL } from '@src/config';
 import { InternalError } from '@src/utils/errors/internal-error';
-import config, { IConfig } from 'config';
 import * as HTTPUtil from '@src/utils/request';
 
 export interface StormGlassPointSource {
@@ -50,10 +50,6 @@ export class StormGlassResponseError extends InternalError {
   }
 }
 
-const stormGlassResoursesConfig: IConfig = config.get(
-  'App.resources.StormGlass'
-);
-
 export class StormGlass {
   readonly stormGlassAPIParams =
     'swellDirection,swellHeight,swellPeriod,waveDirection,waveHeight,windDirection,windSpeed';
@@ -64,11 +60,9 @@ export class StormGlass {
   public async fetchPoints(lat: number, lng: number): Promise<ForecastPoint[]> {
     try {
       const response = await this.request.get<StormGlassForecastResponse>(
-        `${stormGlassResoursesConfig.get('apiUrl')}/weather/point?params=${
-          this.stormGlassAPIParams
-        }&source=${this.stormGlassAPISource}&lat=${lat}&lng=${lng}`,
+        `${STORMGLASS_API_URL}/weather/point?params=${this.stormGlassAPIParams}&source=${this.stormGlassAPISource}&lat=${lat}&lng=${lng}`,
         {
-          headers: { Authorization: stormGlassResoursesConfig.get('apiToken') },
+          headers: { Authorization: STORMGLASS_API_TOKEN },
         }
       );
 

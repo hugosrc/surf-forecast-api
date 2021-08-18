@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import './utils/ts-module-alias';
 import { Server } from '@overnightjs/core';
 import bodyParser from 'body-parser';

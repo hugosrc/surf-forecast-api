@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from 'config';
 import { User } from '@src/models/user';
+import { JWT_TOKEN_EXPIRES_IN, JWT_TOKEN_SECRET } from '@src/config';
 
 export interface DecodedUser extends Omit<User, '_id'> {
   id: string;
@@ -24,12 +24,12 @@ export class AuthService {
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   public static gerenateToken(payload: object): string {
-    return jwt.sign(payload, config.get('App.auth.key'), {
-      expiresIn: config.get('App.auth.tokenExpiresIn'),
+    return jwt.sign(payload, JWT_TOKEN_SECRET, {
+      expiresIn: JWT_TOKEN_EXPIRES_IN,
     });
   }
 
   public static decodeToken(token: string): DecodedUser {
-    return jwt.verify(token, config.get('App.auth.key')) as DecodedUser;
+    return jwt.verify(token, JWT_TOKEN_SECRET) as DecodedUser;
   }
 }

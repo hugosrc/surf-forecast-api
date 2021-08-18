@@ -1,6 +1,6 @@
 import { SetupServer } from './server';
-import config from 'config';
 import logger from './logger';
+import { PORT } from './config';
 
 enum ExitStatus {
   Failure = 1,
@@ -22,7 +22,7 @@ process.on('uncaughtException', (error) => {
 
 (async (): Promise<void> => {
   try {
-    const server = new SetupServer(config.get('App.port'));
+    const server = new SetupServer(PORT as number);
 
     await server.init();
 

@@ -1,7 +1,7 @@
 import pino from 'pino';
-import config from 'config';
+import { LOGGER_LEVEL, NODE_ENV } from './config';
 
 export default pino({
-  enabled: config.get('App.logger.enabled'),
-  level: config.get('App.logger.level'),
+  enabled: NODE_ENV === 'test' ? false : true,
+  level: LOGGER_LEVEL,
 });
