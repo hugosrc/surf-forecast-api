@@ -197,6 +197,21 @@
                 }
               }
             }
+          },
+          "429": {
+            "description": "Rate limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Too many requests to the /forecast endpoint",
+                  "code": "429",
+                  "error": "Too Many Requests"
+                }
+              }
+            }
           }
         }
       }
