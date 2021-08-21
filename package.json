@@ -12,7 +12,7 @@
     "lint:fix": "eslint ./src ./__tests__ --ext .ts --fix",
     "style:check": "prettier --check 'src/**/*.ts' '__tests__/**/*.ts'",
     "style:fix": "prettier --write 'src/**/*.ts' '__tests__/**/*.ts'",
-    "test": "yarn test:unit && yarn test:functional",
+    "test": "yarn lint && yarn style:check && yarn test:unit && yarn test:functional",
     "test:unit": "jest",
     "test:functional": "jest --projects ./__tests__ --runInBand"
   },
