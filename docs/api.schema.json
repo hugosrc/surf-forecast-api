@@ -19,7 +19,7 @@
   "paths": {
     "/users": {
       "post": {
-        "description": "Create a new User",
+        "description": "Create a new user.",
         "operationId": "createUser",
         "parameters": [],
         "requestBody": {
@@ -34,7 +34,7 @@
         },
         "responses": {
           "201": {
-            "description": "The user has been created",
+            "description": "The user has been created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -44,22 +44,22 @@
             }
           },
           "400": {
-            "description": "Invalid parameters",
+            "description": "Invalid parameters.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "message": "Invalid parameters",
-                  "code": "400",
+                  "message": "User validation failed: email: Path `email` is required.",
+                  "code": 400,
                   "error": "Bad Request"
                 }
               }
             }
           },
           "409": {
-            "description": "User conflict",
+            "description": "User conflict.",
             "content": {
               "application/json": {
                 "schema": {
@@ -67,7 +67,7 @@
                 },
                 "example": {
                   "message": "User validation failed: email: already exists in the database.",
-                  "code": "409",
+                  "code": 409,
                   "error": "Conflict"
                 }
               }
@@ -78,7 +78,7 @@
     },
     "/users/authenticate": {
       "post": {
-        "description": "Authenticate the user on the API generating a JWT token",
+        "description": "Authenticate the user on the API.",
         "operationId": "authenticateUser",
         "parameters": [],
         "requestBody": {
@@ -93,7 +93,7 @@
         },
         "responses": {
           "200": {
-            "description": "The user has been authenticate and the JWT returned",
+            "description": "The user has been authenticate.",
             "content": {
               "application/json": {
                 "schema": {
@@ -103,15 +103,15 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "Unauthorized.",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "message": "User unauthorized",
-                  "code": "401",
+                  "message": "User not found!",
+                  "code": 401,
                   "error": "Unauthorized"
                 }
               }
@@ -122,7 +122,7 @@
     },
     "/beaches": {
       "post": {
-        "description": "Create a new Beach belonging to the authenticated user",
+        "description": "Create a new beach.",
         "operationId": "createBeach",
         "parameters": [
           {
@@ -146,7 +146,7 @@
         },
         "responses": {
           "201": {
-            "description": "The Beach has been created!",
+            "description": "The Beach has been created.",
             "content": {
               "application/json": {
                 "schema": {
@@ -160,11 +160,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/BeachCreatedResponse"
                 },
                 "example": {
-                  "message": "Error validating beach data",
-                  "code": "400",
+                  "message": "Beach validation failed: position: Path `position` is required.",
+                  "code": 400,
                   "error": "Bad Request"
                 }
               }
@@ -175,7 +175,7 @@
     },
     "/forecast": {
       "get": {
-        "description": "Get the list of forecast ordered by the most ranked",
+        "description": "Get the list of forecast ordered by the most ranked.",
         "operationId": "getForecast",
         "parameters": [
           {
@@ -189,7 +189,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The list of forecast has been returned",
+            "description": "The list of forecast has been returned.",
             "content": {
               "application/json": {
                 "schema": {
@@ -199,7 +199,7 @@
             }
           },
           "429": {
-            "description": "Rate limit",
+            "description": "Rate limit.",
             "content": {
               "application/json": {
                 "schema": {
@@ -219,9 +219,9 @@
   },
   "components": {
     "schemas": {
-      "jwtToken": {
+      "id":{
         "type": "string",
-        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSHVnbyBTb3V6YSIsImVtYWlsIjoiaHVnb3NyLmNvbnRhdG9AZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkeXdYU0tJSlNjQVk5bjVMOUlQTDFwT0doVkdzbGtLb2ZwUW1OTXlGdHNYWlJmNmhucWZJN2UiLCJpZCI6IjYxMWZmMjRjMGNjM2UyMTA1Njg0OTcyMSIsImlhdCI6MTYyOTQ4MzU5OSwiZXhwIjoxNjI5NTY5OTk5fQ.AqSre_ZtSkQEIJly-kz7br_BZ2hwBcBzNLnYVQLlNDU"
+        "example": "5e8131eba7768d9e4f06c884"
       },
       "name": {
         "type": "string",
@@ -235,6 +235,10 @@
         "type": "string",
         "example": "12345#@$$%"
       },
+      "jwtToken": {
+        "type": "string",
+        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2U..."
+      },
       "beachName": {
         "type": "string",
         "example": "Copacabana beach"
@@ -247,27 +251,10 @@
         "type": "number",
         "example": -10.55
       },
-      "id":{
-        "type": "string",
-        "example": "5e8131eba7768d9e4f06c884"
-      },
       "beachPosition": {
         "type": "string",
         "enum": ["N", "S", "W", "E"],
         "example": "S"
-      },
-      "forecastPropertyKey": {
-        "type": "object",
-        "properties": {
-          "source": {
-            "type": "string",
-            "example": "noa"
-          },
-          "value": {
-            "type": "number",
-            "example": "10.1"
-          }
-        }
       },
       "User": {
         "type": "object",
@@ -280,6 +267,39 @@
           },
           "password": {
             "$ref": "#/components/schemas/password"
+          }
+        }
+      },
+      "UserAuth": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/password"
+          }
+        }
+      },
+      "UserCreatedResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "$ref": "#/components/schemas/jwtToken"
+          }
+        }
+      },
+      "AuthenticatedUserResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "$ref": "#/components/schemas/jwtToken"
           }
         }
       },
@@ -301,18 +321,26 @@
         },
         "required": ["name", "lat", "lng", "position"]
       },
-      "TimeForecast": {
-        "type":"array",
-        "items": {
-          "type":"object",
-          "properties": {
-            "time": {
-              "type": "string",
-              "example": "2019-05-31T08:00:00+00:00"
-            },
-            "forecast": {
-              "$ref": "#/components/schemas/BeachForecast"
-            }
+      "BeachCreatedResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/beachName"
+          },
+          "lat": {
+            "$ref": "#/components/schemas/beachLat"
+          },
+          "lng": {
+            "$ref": "#/components/schemas/beachLng"
+          },
+          "position": {
+            "$ref": "#/components/schemas/beachPosition"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
           }
         }
       },
@@ -379,81 +407,18 @@
           }
         }
       },
-      "UserAuth": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "$ref": "#/components/schemas/email"
-          },
-          "password": {
-            "$ref": "#/components/schemas/password"
-          }
-        }
-      },
-      "UserCreatedResponse": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "$ref": "#/components/schemas/name"
-              },
-              "email": {
-                "$ref": "#/components/schemas/email"
-              },
-              "password": {
-                "$ref": "#/components/schemas/password"
-              },
-              "id": {
-                "$ref": "#/components/schemas/id"
-              }
+      "TimeForecast": {
+        "type":"array",
+        "items": {
+          "type":"object",
+          "properties": {
+            "time": {
+              "type": "string",
+              "example": "2019-05-31T08:00:00+00:00"
+            },
+            "forecast": {
+              "$ref": "#/components/schemas/BeachForecast"
             }
-          }
-        }
-      },
-      "AuthenticatedUserResponse": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "$ref": "#/components/schemas/name"
-              },
-              "email": {
-                "$ref": "#/components/schemas/email"
-              },
-              "password": {
-                "$ref": "#/components/schemas/password"
-              },
-              "id": {
-                "$ref": "#/components/schemas/id"
-              },
-              "token": {
-                "$ref": "#/components/schemas/jwtToken"
-              }
-            }
-          }
-        }
-      },
-      "BeachCreatedResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/id"
-          },
-          "name": {
-            "$ref": "#/components/schemas/beachName"
-          },
-          "lat": {
-            "$ref": "#/components/schemas/beachLat"
-          },
-          "lng": {
-            "$ref": "#/components/schemas/beachLng"
-          },
-          "position": {
-            "$ref": "#/components/schemas/beachPosition"
           }
         }
       },

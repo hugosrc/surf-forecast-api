@@ -1,5 +1,4 @@
 import { User } from '@src/models/user';
-import { AuthService } from '@src/services/auth';
 
 describe('Users functional tests', () => {
   beforeEach(async () => {
@@ -7,7 +6,7 @@ describe('Users functional tests', () => {
   });
 
   describe('When creating a new user', () => {
-    it('should successfully create a new user with ecrypted password', async () => {
+    it('should successfully create a new user', async () => {
       const newUser = {
         name: 'John',
         email: 'john@mail.com',
@@ -19,13 +18,14 @@ describe('Users functional tests', () => {
       expect(response.status).toBe(201);
       expect(response.body).toEqual(
         expect.objectContaining({
-          ...newUser,
-          ...{ password: expect.any(String) },
+          user: {
+            id: expect.any(String),
+            name: newUser.name,
+            email: newUser.email,
+          },
+          token: expect.any(String),
         })
       );
-      await expect(
-        AuthService.comparePasswords(newUser.password, response.body.password)
-      ).resolves.toBeTruthy();
     });
 
     it('should return a validation error when a field is missing', async () => {
@@ -83,7 +83,14 @@ describe('Users functional tests', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(
-        expect.objectContaining({ token: expect.any(String) })
+        expect.objectContaining({
+          user: {
+            id: expect.any(String),
+            name: newUser.name,
+            email: newUser.email,
+          },
+          token: expect.any(String),
+        })
       );
     });
 
@@ -98,7 +105,7 @@ describe('Users functional tests', () => {
       expect(response.status).toBe(401);
     });
 
-    it('', async () => {
+    it('should return UNAUTHORIZED if the user is found but the password does not match', async () => {
       const newUser = {
         name: 'John',
         email: 'john@mail.com',

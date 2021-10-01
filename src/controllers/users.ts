@@ -13,7 +13,12 @@ export class UsersController extends BaseController {
 
       const newUser = await user.save();
 
-      res.status(201).send(newUser);
+      const token = AuthService.gerenateToken(user.toJSON());
+
+      res.status(201).send({
+        user: newUser.toJSON(),
+        token,
+      });
     } catch (err) {
       this.sendCreateUpdateErrorResponse(res, err);
     }
@@ -41,6 +46,9 @@ export class UsersController extends BaseController {
 
     const token = AuthService.gerenateToken(user.toJSON());
 
-    return res.status(200).send({ token });
+    return res.status(200).send({
+      user: user.toJSON(),
+      token,
+    });
   }
 }
