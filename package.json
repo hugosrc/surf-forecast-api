@@ -5,8 +5,9 @@
   "author": "hugosrc <hugo.uibai54@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
+    "build": "tsc",
     "prestart": "rm -rf ./dist",
-    "start": "tsc && node dist/src/index.js",
+    "start": "yarn build && node dist/src/index.js",
     "dev": "tsnd --transpile-only --respawn --no-notify src/index.ts | pino-pretty -c",
     "lint": "eslint ./src ./__tests__ --ext .ts",
     "lint:fix": "eslint ./src ./__tests__ --ext .ts --fix",

@@ -1,0 +1,30 @@
+version: '3.8'
+
+networks:
+  surfforecast-network:
+    driver: bridge
+
+services:
+  surfforecast-api:
+    build: .
+    container_name: surfforecast-api
+    volumes:
+      - .:/home/node/app
+    environment:
+      - MONGO_URI=mongodb://surfforecast-mongo:27017/surf-forecast
+    networks:
+      - surfforecast-network
+    depends_on:
+      - surfforecast-mongo 
+    command: yarn dev
+    ports:
+      - "3000:3000"
+
+  surfforecast-mongo:
+    image: mongo
+    container_name: surfforecast-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - surfforecast-network
