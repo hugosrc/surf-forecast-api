@@ -120,6 +120,49 @@
         }
       }
     },
+    "/users/me": {
+      "get": {
+        "description": "Get user profile",
+        "operationId": "getUserProfile",
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/jwtToken"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returned user profile information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileUserResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "User not found!",
+                  "code": 404,
+                  "error": "Not Found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/beaches": {
       "post": {
         "description": "Create a new beach.",
@@ -160,7 +203,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BeachCreatedResponse"
+                  "$ref": "#/components/schemas/Error"
                 },
                 "example": {
                   "message": "Beach validation failed: position: Path `position` is required.",
@@ -300,6 +343,14 @@
           },
           "token": {
             "$ref": "#/components/schemas/jwtToken"
+          }
+        }
+      },
+      "ProfileUserResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
           }
         }
       },
