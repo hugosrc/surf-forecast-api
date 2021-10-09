@@ -145,6 +145,21 @@
               }
             }
           },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid token",
+                  "code": 401,
+                  "error": "invalid token"
+                }
+              }
+            }
+          },
           "404": {
             "description": "User not found.",
             "content": {
@@ -212,6 +227,21 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid token",
+                  "code": 401,
+                  "error": "invalid token"
+                }
+              }
+            }
           }
         }
       }
@@ -237,6 +267,21 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TimeForecast"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid token",
+                  "code": 401,
+                  "error": "invalid token"
                 }
               }
             }
