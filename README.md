@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/license/hugosrc/surf-forecast-api?color=%2334ebd5" />
 </p>
 
-SurfForecast is an API developed to support surfers, providing information about weather forecast, wave size, wind strength and many other important information for the practice of the sport. Developed based on [Waldemar Neto](https://www.nodejs-typescript-api.com/curso-gratis/)'s course.
+SurfForecast is an API developed to support surfers, providing information about weather forecast, wave size, wind strength and many other important information for the practice of the sport. Developed based on the [From Zero to Production](https://www.nodejs-typescript-api.com/curso-gratis/) course.
 
 # Table of contents
 
