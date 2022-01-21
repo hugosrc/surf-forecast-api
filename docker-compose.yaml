@@ -9,7 +9,9 @@ services:
       - "27017:27017"
 
   test:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     entrypoint: yarn test
     environment:
       - MONGO_URI=mongodb://mongo:27017/surf-forecast
@@ -22,7 +24,9 @@ services:
       - mongo
 
   surfforecast-api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     entrypoint: yarn start
     container_name: surfforecast-api
     volumes:
