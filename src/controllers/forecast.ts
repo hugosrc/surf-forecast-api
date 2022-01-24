@@ -35,7 +35,7 @@ export class ForecastController extends BaseController {
     res: Response
   ): Promise<Response> {
     try {
-      const beaches = await Beach.find({ user: req.decoded?.id });
+      const beaches = await Beach.find({ user: req.decoded.id });
       const forecastData = await forecast.processForecastForBeaches(beaches);
       return res.status(200).send(forecastData);
     } catch (err) {
