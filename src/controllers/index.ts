@@ -8,11 +8,11 @@ export abstract class BaseController {
   protected sendCreateUpdateErrorResponse(
     res: Response,
     error: mongoose.Error.ValidationError | Error
-  ): void {
+  ): Response {
     if (error instanceof mongoose.Error.ValidationError) {
       const clientErrors = this.handleClientErrors(error);
 
-      res.status(clientErrors.code).send(
+      return res.status(clientErrors.code).send(
         ApiError.format({
           code: clientErrors.code,
           message: clientErrors.error,
@@ -20,7 +20,7 @@ export abstract class BaseController {
       );
     } else {
       logger.error(error);
-      res
+      return res
         .status(500)
         .send(ApiError.format({ code: 500, message: 'Something went wrong!' }));
     }
