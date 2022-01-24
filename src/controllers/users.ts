@@ -8,7 +8,7 @@ import { authMiddleware } from '@src/middlewares/auth';
 @Controller('users')
 export class UsersController extends BaseController {
   @Post('')
-  public async create(req: Request, res: Response): Promise<void> {
+  public async create(req: Request, res: Response): Promise<Response> {
     try {
       const user = new User(req.body);
 
@@ -16,12 +16,12 @@ export class UsersController extends BaseController {
 
       const token = AuthService.gerenateToken(user.toJSON());
 
-      res.status(201).send({
+      return res.status(201).send({
         user: newUser.toJSON(),
         token,
       });
     } catch (err) {
-      this.sendCreateUpdateErrorResponse(res, err);
+      return this.sendCreateUpdateErrorResponse(res, err);
     }
   }
 
