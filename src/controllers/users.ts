@@ -56,7 +56,7 @@ export class UsersController extends BaseController {
   @Get('me')
   @Middleware(authMiddleware)
   public async me(req: Request, res: Response): Promise<Response> {
-    const id = req.decoded?.id;
+    const id = req.decoded.id;
     const user = await User.findById(id);
     if (!user) {
       return this.sendErrorResponse(res, {

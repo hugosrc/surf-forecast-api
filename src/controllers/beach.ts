@@ -10,7 +10,7 @@ export class BeachesController extends BaseController {
   @Post('')
   public async create(req: Request, res: Response): Promise<Response> {
     try {
-      const beach = new Beach({ ...req.body, ...{ user: req.decoded?.id } });
+      const beach = new Beach({ ...req.body, ...{ user: req.decoded.id } });
 
       const result = await beach.save();
 
