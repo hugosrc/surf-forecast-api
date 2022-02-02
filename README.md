@@ -1,76 +1,75 @@
-<h1 align="center">SurfForecast API</h1>
+<div align="center">
+  <h1 align="center">SurfForecast API</h1>
 
-<p align="center">
-  <img src="https://img.shields.io/github/languages/top/hugosrc/surf-forecast-api?color=%2334ebd5">
-  <img src="https://img.shields.io/github/languages/code-size/hugosrc/surf-forecast-api?color=%2334ebd5" />
-  <img src="https://img.shields.io/github/license/hugosrc/surf-forecast-api?color=%2334ebd5" />
-</p>
+  <p align="center">
+    <img src="https://img.shields.io/github/languages/top/hugosrc/surf-forecast-api?color=%2334ebd5">
+    <img src="https://img.shields.io/github/languages/code-size/hugosrc/surf-forecast-api?color=%2334ebd5" />
+    <img src="https://img.shields.io/github/license/hugosrc/surf-forecast-api?color=%2334ebd5" />
+  </p>
 
-SurfForecast is an API developed to support surfers, providing information about weather forecast, wave size, wind strength and many other important information for the practice of the sport. Developed based on the [From Zero to Production](https://www.nodejs-typescript-api.com/curso-gratis/) course.
+  <p align="center">SurfForecast is an API developed to help surfers, providing information about wave size, wind strength and other information about nearby beaches.</p>
 
-# Table of contents
+  <p align="center">
+    <a href="https://surffore.herokuapp.com"><strong>View Demo »</strong></a>
+    <a href="https://surffore.herokuapp.com/docs"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/hugosrc/surf-forecast-api/contribute"><strong>Contribute</strong></a>
+  </p>
+</div>
+
+## Table of contents
 
 * [Overview](#overview)
   * [Objectives](#objectives)
-  * [Tecnologies](#tecnologies)
-* [Features](#features)
-  * [User Authentication](#user-authentication)
-  * [Create Beaches](#create-beaches)
-  * [Weather Forecasts](#weather-forecasts)
-* [Author](#author)
+  * [Built With](#built-with)
+* [Developing](#developing)
+  * [First steps](#first-steps)
+  * [Running the server](#running-the-server)
+* [Contact](#contact)
 
-# Overview
+## Overview
 
-## Objectives
+Developed based on the [From Zero to Production](https://www.nodejs-typescript-api.com/curso-gratis/) course.
 
-This project was created with the objective of developing something useful that would help solve someone's problem, another objective was to create something that I could develop using concepts and techniques learned in theory, such as the concept of TDD (Test-Driven-Design), containerization of web applications, use of workflows for process automation, in this case a CI/CD pipeline, documentation using OpenAPI, among other concepts.
+### Objectives
 
-## Tecnologies
+This project was created with the objective of developing something using modern concepts and techniques in software development, such as containerization, use of workflows for process automation, documentation using OpenAPI specification, and much more.
+
+### Built With
 
 - [NodeJS](https://nodejs.org/en/)
 - [Typescript](https://www.typescriptlang.org/)
 - [OpenAPI](https://swagger.io/specification/)
 - [MongoDB](https://www.mongodb.com/)
 - [Docker](https://www.docker.com/)
-- [Github Actions](https://docs.github.com/en/actions/quickstart)
 
-# Features
+## Developing
 
-## User Authentication
+To develop for this project it is recommended that you have [Docker](https://docs.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed.
 
-The API authentication process is based on JWT tokens, when registering with their name, email and password information, the user receives a token which will be used in the authentication process of several application routes.
+### First steps
 
-## Create Beaches
-
-The user authenticated with his token can create the location of the beaches, which will later be informed about the weather forecast in the exact location, for this all he needs is a name, position, latitude and longitude of the beach.
-
-## Weather Forecasts
-
-The main feature of the API is the weather forecast of the beaches created by the user, which returns an array containing the beach information at an exact moment, for example:
-
-```json
-{
-  "time": "2021-10-09T00:00:00+00:00",
-  "forecast": [
-    {
-      "lat": -23.791711,
-      "lng": -45.567022,
-      "name": "Maresias beach",
-      "position": "S",
-      "rating": 3,
-      "time": "2021-10-09T00:00:00+00:00",
-      "swellDirection": 174.94,
-      "swellHeight": 1.77,
-      "swellPeriod": 10.91,
-      "waveDirection": 179.12,
-      "waveHeight": 1.92,
-      "windSpeed": 9.42,
-      "windDirection": 97.47
-    }
-  ]
-}
+1. **Clone the repository:**
+```sh
+$ git clone https://github.com/hugosrc/surf-forecast-api
 ```
 
-# Author
+2. **Build the base images:**
+```sh
+$ docker-compose build surfforecast-api
+```
 
-Created by Hugo Souza (hugosr.contato@gmail.com), Contact 👋!
+### Running the server
+
+1. **Start database**
+```sh
+$ make start-db
+```
+
+2. **Then finally, start the server**
+```sh
+$ make surfforecast-api
+```
+
+## Contact
+
+Hugo Souza - hugosr.contato@gmail.com
