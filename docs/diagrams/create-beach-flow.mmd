@@ -1,0 +1,10 @@
+sequenceDiagram
+    participant Client
+    participant Controller
+    participant Database
+
+    Client ->>+ Controller: HTTP POST /beaches
+        Note over Client,Controller: Body: beach_info (name, position, lat, lng)
+    Controller ->>+ Database: db.create()
+    Database -->>- Controller: "created"
+    Controller -->>- Client: 201 created
