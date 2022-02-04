@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant Client
+    participant Controller
+    participant Database
+    participant Forecast Service
+    participant Weather API
+    participant Rating Service
+
+    Client ->>+ Controller: HTTP GET /forecast
+    Controller ->>+ Database: db.find()
+    Database -->>- Controller: beaches[ ]
+    Controller ->>+ Forecast Service: Get forecast for all user's beaches
+    Forecast Service ->>+ Weather API: Fetch points for lat and lng
+    Weather API -->>- Forecast Service: forecast
+    Forecast Service ->>+ Rating Service: Calculate rating
+    Rating Service -->>- Forecast Service: rating
+    Forecast Service -->>- Controller: forecast[ ]
+    Controller -->>- Client: 
