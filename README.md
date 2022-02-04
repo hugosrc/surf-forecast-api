@@ -18,13 +18,17 @@
 
 ## Table of contents
 
-* [Overview](#overview)
-  * [Objectives](#objectives)
-  * [Built With](#built-with)
-* [Developing](#developing)
-  * [First steps](#first-steps)
-  * [Running the server](#running-the-server)
-* [Contact](#contact)
+- [Overview](#overview)
+  - [Objectives](#objectives)
+  - [Built With](#built-with)
+- [Data Flow](#data-flow)
+  - [Server](#server)
+    - [1. Create Beach](#1-create-beach)
+    - [2. Get Beach Forecast](#2-get-beach-forecast)
+- [Developing](#developing)
+  - [First steps](#first-steps)
+  - [Running the server](#running-the-server)
+- [Contact](#contact)
 
 ## Overview
 
@@ -41,6 +45,79 @@ This project was created with the objective of developing something using modern
 - [OpenAPI](https://swagger.io/specification/)
 - [MongoDB](https://www.mongodb.com/)
 - [Docker](https://www.docker.com/)
+
+## Data Flow
+
+For more information, visit the api [documentation](https://surffore.herokuapp.com/docs).
+
+### Server
+
+#### 1. Create Beach
+
+![beach-flow](https://user-images.githubusercontent.com/68757329/152615873-fbcd0cc6-1042-4d99-abcd-05103d3d8628.png)
+
+**Example**
+  
+  > `POST /beaches`
+
+  ```json
+  {
+    "name": "Maresias Beach",
+    "position": "S",
+    "lat": -23.791711,
+    "lng": -45.567022
+  }
+  ```
+
+  > `201 Created`
+  
+  ```json
+  {
+    "name": "Maresias Beach",
+    "position": "S",
+    "lat": -23.791711,
+    "lng": -45.567022,
+    "user": "61eee0f84a749ca7b4805388",
+    "id": "61eee0fe4a749ca7b4805389"
+  }
+  ```
+  
+#### 2. Get Beach Forecast
+
+![forecast-flow](https://user-images.githubusercontent.com/68757329/152615922-feb1bcaf-dc7a-4440-abd4-11009c20a547.png)
+
+**Example**
+  
+  > `GET /forecast`
+
+  > `200 Ok`
+  
+  ```json
+  [
+    {
+      "time": "2022-02-04T00:00:00+00:00",
+      "forecast": [
+        {
+          "lat": -23.791711,
+          "lng": -45.567022,
+          "name": "Maresias Beach",
+          "position": "S",
+          "rating": 2,
+          "time": "2022-02-04T00:00:00+00:00",
+          "swellDirection": 186.06,
+          "swellHeight": 0.61,
+          "swellPeriod": 9.05,
+          "waveDirection": 182.25,
+          "waveHeight": 1.17,
+          "windSpeed": 7.12,
+          "windDirection": 67.68
+        },
+        ...
+      ]
+    },
+    ...
+  ]
+  ```
 
 ## Developing
 
