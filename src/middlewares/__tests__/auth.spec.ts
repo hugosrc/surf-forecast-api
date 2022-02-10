@@ -1,66 +1,108 @@
 import { AuthService } from '@src/services/auth';
+import { Request, Response, NextFunction } from 'express';
 import { authMiddleware } from '../auth';
 
 describe('Auth Middleware', () => {
+  let mockRequest: Partial<Request>;
+  let mockResponse: Partial<Response>;
+  const nextFunction: NextFunction = jest.fn();
+
+  beforeEach(() => {
+    mockRequest = {};
+    mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+  });
+
   it('should verify a JWT token and call the next middleware', () => {
     const jwtToken = AuthService.gerenateToken({ data: 'token' });
 
-    const reqFake = {
+    mockRequest = {
       headers: {
-        'x-access-token': jwtToken,
+        authorization: 'Bearer ' + jwtToken,
       },
     };
-    const resFake = {};
-    const nextFake = jest.fn();
 
-    authMiddleware(reqFake, resFake, nextFake);
+    authMiddleware(
+      mockRequest as Request,
+      mockResponse as Response,
+      nextFunction
+    );
 
-    expect(nextFake).toHaveBeenCalled();
+    expect(nextFunction).toHaveBeenCalledTimes(1);
   });
 
   it('should return UNAUTHORIZED if there is problem on the token verification', () => {
-    const reqFake = {
+    mockRequest = {
       headers: {
-        'x-access-token': 'invalid token',
+        authorization: 'invalid token',
       },
     };
-    const sendMock = jest.fn();
-    const resFake = {
-      status: jest.fn(() => ({
-        send: sendMock,
-      })),
+
+    mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
     };
-    const nextFake = jest.fn();
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    authMiddleware(reqFake, resFake as object, nextFake);
+    authMiddleware(
+      mockRequest as Request,
+      mockResponse as Response,
+      nextFunction
+    );
 
-    expect(resFake.status).toHaveBeenCalledWith(401);
-    expect(sendMock).toHaveBeenCalledWith({
+    expect(mockResponse.status).toHaveBeenCalledWith(401);
+    expect(mockResponse.json).toHaveBeenCalledWith({
       code: 401,
       error: 'jwt malformed',
     });
   });
 
-  it('should return ANAUTHORIZED middleware if theres no token', () => {
-    const reqFake = {
+  it('should return UNAUTHORIZED middleware if theres no token', () => {
+    mockRequest = {
       headers: {},
     };
-    const sendMock = jest.fn();
-    const resFake = {
-      status: jest.fn(() => ({
-        send: sendMock,
-      })),
+
+    mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
     };
-    const nextFake = jest.fn();
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    authMiddleware(reqFake, resFake as object, nextFake);
+    authMiddleware(
+      mockRequest as Request,
+      mockResponse as Response,
+      nextFunction
+    );
 
-    expect(resFake.status).toHaveBeenCalledWith(401);
-    expect(sendMock).toHaveBeenCalledWith({
+    expect(mockResponse.status).toHaveBeenCalledWith(401);
+    expect(mockResponse.json).toHaveBeenCalledWith({
       code: 401,
-      error: 'jwt must be provided',
+      message: 'token unavailable',
+    });
+  });
+
+  it('should return UNAUTHORIZED middleware for malformed bearer token', () => {
+    mockRequest = {
+      headers: {
+        authorization: 'malformed-bearer-token',
+      },
+    };
+
+    mockResponse = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    authMiddleware(
+      mockRequest as Request,
+      mockResponse as Response,
+      nextFunction
+    );
+
+    expect(mockResponse.status).toHaveBeenCalledWith(401);
+    expect(mockResponse.json).toHaveBeenCalledWith({
+      code: 401,
+      message: 'invalid bearer token',
     });
   });
 });

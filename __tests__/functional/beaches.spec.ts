@@ -30,7 +30,7 @@ describe('Beaches functional tests', () => {
 
       const response = await global.testRequest
         .post('/beaches')
-        .set({ 'x-access-token': token })
+        .set({ authorization: 'Bearer ' + token })
         .send(newBeach);
 
       expect(response.status).toBe(201);
@@ -47,7 +47,7 @@ describe('Beaches functional tests', () => {
 
       const response = await global.testRequest
         .post('/beaches')
-        .set({ 'x-access-token': token })
+        .set({ authorization: 'Bearer ' + token })
         .send(newBeach);
 
       expect(response.status).toBe(400);
