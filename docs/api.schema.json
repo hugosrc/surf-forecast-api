@@ -126,10 +126,10 @@
         "operationId": "getUserProfile",
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "Authorization",
             "in": "header",
             "schema": {
-              "$ref": "#/components/schemas/jwtToken"
+              "$ref": "#/components/schemas/bearerToken"
             },
             "required": true
           }
@@ -184,10 +184,10 @@
         "operationId": "createBeach",
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "Authorization",
             "in": "header",
             "schema": {
-              "$ref": "#/components/schemas/jwtToken"
+              "$ref": "#/components/schemas/bearerToken"
             },
             "required": true
           }
@@ -252,10 +252,10 @@
         "operationId": "getForecast",
         "parameters": [
           {
-            "name": "x-access-token",
+            "name": "Authorization",
             "in": "header",
             "schema": {
-              "$ref": "#/components/schemas/jwtToken"
+              "$ref": "#/components/schemas/bearerToken"
             },
             "required": true
           }
@@ -323,9 +323,9 @@
         "type": "string",
         "example": "12345#@$$%"
       },
-      "jwtToken": {
+      "bearerToken": {
         "type": "string",
-        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2U..."
+        "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2U..."
       },
       "beachName": {
         "type": "string",
@@ -376,7 +376,7 @@
             "$ref": "#/components/schemas/User"
           },
           "token": {
-            "$ref": "#/components/schemas/jwtToken"
+            "$ref": "#/components/schemas/bearerToken"
           }
         }
       },
@@ -387,7 +387,7 @@
             "$ref": "#/components/schemas/User"
           },
           "token": {
-            "$ref": "#/components/schemas/jwtToken"
+            "$ref": "#/components/schemas/bearerToken"
           }
         }
       },

@@ -53,7 +53,7 @@ describe('Beach forecast functional tests', () => {
 
     const { body, status } = await global.testRequest
       .get('/forecast')
-      .set({ 'x-access-token': token });
+      .set({ authorization: 'Bearer ' + token });
 
     expect(status).toBe(200);
     expect(body).toEqual(apiForecastResponse1BeachFixture);
@@ -73,7 +73,7 @@ describe('Beach forecast functional tests', () => {
 
     const { status } = await global.testRequest
       .get(`/forecast`)
-      .set({ 'x-access-token': token });
+      .set({ authorization: 'Bearer ' + token });
 
     expect(status).toBe(500);
   });
