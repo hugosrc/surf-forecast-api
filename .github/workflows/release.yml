@@ -11,7 +11,7 @@ jobs:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     environment: 
       name: staging
-      url: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com
+      url: ${{ format('https://{0}.herokuapp.com', secrets.HEROKU_APP_NAME) }}
     steps:
       - uses: actions/checkout@v2
     
@@ -26,11 +26,12 @@ jobs:
 
   deploy_prd:
     runs-on: ubuntu-latest
+    needs: [deploy_stg]
     env:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     environment: 
       name: production
-      url: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com
+      url: ${{ format('https://{0}.herokuapp.com', secrets.HEROKU_APP_NAME) }}
     steps:
       - uses: actions/checkout@v2
     
