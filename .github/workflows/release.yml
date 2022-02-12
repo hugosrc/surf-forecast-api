@@ -11,7 +11,7 @@ jobs:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     environment: 
       name: staging
-      url: ${{ format('https://{0}.herokuapp.com', secrets.HEROKU_APP_NAME) }}
+      url: https://surffore-stage.herokuapp.com
     steps:
       - uses: actions/checkout@v2
     
@@ -31,7 +31,7 @@ jobs:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     environment: 
       name: production
-      url: ${{ format('https://{0}.herokuapp.com', secrets.HEROKU_APP_NAME) }}
+      url: https://surffore.herokuapp.com
     steps:
       - uses: actions/checkout@v2
     
