@@ -12,8 +12,16 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000/",
-      "description": "Local server"
+      "url": "https://surffore.herokuapp.com/",
+      "description": "SurfFore API"
+    },
+    {
+      "url": "https://surffore-stage.herokuapp.com/",
+      "description": "SurfFore Staging"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "SurfFore Local"
     }
   ],
   "paths": {
