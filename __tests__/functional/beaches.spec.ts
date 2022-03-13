@@ -77,8 +77,8 @@ describe('Beaches functional tests', () => {
         .set({ authorization: 'Bearer ' + token })
         .send(newBeach);
 
-      createdBeachId = createdBeachResponse.body.id
-    })
+      createdBeachId = createdBeachResponse.body.id;
+    });
 
     it('should update a beach with success', async () => {
       const updatedBeach = {
@@ -105,7 +105,7 @@ describe('Beaches functional tests', () => {
         position: 'E',
       };
 
-      const invalidBeachId = '507f191e810c19729de860ea'
+      const invalidBeachId = '507f191e810c19729de860ea';
 
       const response = await global.testRequest
         .put(`/beaches/${invalidBeachId}`)
@@ -116,19 +116,19 @@ describe('Beaches functional tests', () => {
       expect(response.body).toEqual({
         code: 404,
         message: 'Beach not found',
-        error: 'Not Found'
+        error: 'Not Found',
       });
     });
 
     it('should return a beach validation error', async () => {
       const updatedBeach = {
         lat: -33.792726,
-        lng: "invalid-lng",
+        lng: 'invalid-lng',
         name: 'Dunbar Beach',
         position: 'E',
       };
 
-      const invalidBeachId = '507f191e810c19729de860ea'
+      const invalidBeachId = '507f191e810c19729de860ea';
 
       const response = await global.testRequest
         .put(`/beaches/${invalidBeachId}`)
@@ -139,7 +139,7 @@ describe('Beaches functional tests', () => {
       expect(response.body).toEqual({
         code: 400,
         message: 'request.body.lng should be number',
-        error: 'Bad Request'
+        error: 'Bad Request',
       });
     });
 
@@ -168,7 +168,7 @@ describe('Beaches functional tests', () => {
       expect(response.body).toEqual({
         code: 403,
         message: 'Forbidden',
-        error: 'Forbidden'
+        error: 'Forbidden',
       });
     });
   });

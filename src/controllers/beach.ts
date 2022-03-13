@@ -30,7 +30,7 @@ export class BeachesController extends BaseController {
   public async update(req: Request, res: Response): Promise<Response> {
     const { name, lat, lng, position } = req.body;
     const beachId = req.params.id;
-    const usedId = req.decoded.id
+    const usedId = req.decoded.id;
 
     const beach = await Beach.findById(beachId);
     if (!beach) {
@@ -53,7 +53,7 @@ export class BeachesController extends BaseController {
         lat,
         lng,
         position,
-        user: usedId
+        user: usedId,
       });
 
       return res.status(200).json({
@@ -62,7 +62,7 @@ export class BeachesController extends BaseController {
         lat,
         lng,
         position,
-        user: usedId
+        user: usedId,
       });
     } catch (err) {
       return this.sendCreateUpdateErrorResponse(res, err);
