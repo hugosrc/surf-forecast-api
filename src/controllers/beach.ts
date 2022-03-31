@@ -1,4 +1,10 @@
-import { Controller, ClassMiddleware, Post, Put } from '@overnightjs/core';
+import {
+  Controller,
+  ClassMiddleware,
+  Post,
+  Put,
+  Delete,
+} from '@overnightjs/core';
 import { Request, Response } from 'express';
 import { Beach } from '@src/models/beach';
 import { BaseController } from '.';
@@ -67,5 +73,30 @@ export class BeachesController extends BaseController {
     } catch (err) {
       return this.sendCreateUpdateErrorResponse(res, err);
     }
+  }
+
+  @Delete(':id')
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const beachId = req.params.id;
+    const usedId = req.decoded.id;
+
+    const beach = await Beach.findById(beachId);
+    if (!beach) {
+      return this.sendErrorResponse(res, {
+        code: 404,
+        message: 'Beach not found',
+      });
+    }
+
+    if (beach.user != usedId) {
+      return this.sendErrorResponse(res, {
+        code: 403,
+        message: 'Forbidden',
+      });
+    }
+
+    await beach.deleteOne();
+
+    return res.status(204).send();
   }
 }

@@ -350,6 +350,70 @@
             }
           }
         }
+      },
+      "delete": {
+        "description": "Delete beach.",
+        "operationId": "deleteBeach",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "$ref": "#/components/schemas/bearerToken"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The Beach has been deleted"
+          },
+          "401": {
+            "description": "Invalid Token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "invalid token",
+                  "code": 401,
+                  "error": "invalid token"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Forbidden",
+                  "code": 403,
+                  "error": "Forbidden"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Beach not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Beach not found",
+                  "code": 404,
+                  "error": "Not Found"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/forecast": {
